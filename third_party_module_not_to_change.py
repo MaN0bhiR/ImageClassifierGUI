@@ -73,25 +73,25 @@ def long_procedure(filename , model_name):
     
     model = tf.keras.Sequential()
 
-    model.add(tf.keras.layers.Conv2D(64 ,(3,3) , input_shape = x_train.shape[1:] , activation = "relu" ))
-    #model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Conv2D(32 ,(3,3) , input_shape = x_train.shape[1:] , activation = "relu" ))
+    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.MaxPooling2D(pool_size = (2,2)))
-    #model.add(tf.keras.layers.Dropout(0.20))
+    model.add(tf.keras.layers.Dropout(0.20))
 
     model.add(tf.keras.layers.Conv2D(64 ,(3,3)  , activation = "relu" ))
-    #model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.MaxPooling2D(pool_size = (2,2)))
-    #model.add(tf.keras.layers.Dropout(0.20))
+    model.add(tf.keras.layers.Dropout(0.20))
 
 
-    model.add(tf.keras.layers.Conv2D(32 , (3 , 3) , activation="relu"))
-    #model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Conv2D(64 , (3 , 3) , activation="relu"))
+    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2)))
-    #model.add(tf.keras.layers.Dropout(0.20))
+    model.add(tf.keras.layers.Dropout(0.20))
 
     model.add(tf.keras.layers.Flatten())
     model.add(tf.keras.layers.Dense(128, activation = tf.nn.relu))
-    #model.add(tf.keras.layers.Dropout(0.2))
+    model.add(tf.keras.layers.Dropout(0.2))
     model.add(tf.keras.layers.Dense(128 , activation = tf.nn.relu))
     
     model.add(tf.keras.layers.Dense(no_classes , activation  = tf.nn.softmax))
@@ -99,7 +99,7 @@ def long_procedure(filename , model_name):
     model.compile(optimizer = 'adam' , loss = 'sparse_categorical_crossentropy', metrics = ['accuracy'] , run_eagerly = True)
     tqdm_callback = tfa.callbacks.TQDMProgressBar()
     print(f"{model_name} : Training Started ")
-    model.fit(x_train, y_train , epochs = int(8 * no_classes)  , callbacks = [tqdm_callback] , verbose=1)
+    model.fit(x_train, y_train , epochs = int(3 * no_classes)  , callbacks = [tqdm_callback] , verbose=1)
     
     tqdm_obect = tqdm(tqdm_callback, unit_scale=True, dynamic_ncols=True)
     tqdm_obect.set_description("Model Trained !")
